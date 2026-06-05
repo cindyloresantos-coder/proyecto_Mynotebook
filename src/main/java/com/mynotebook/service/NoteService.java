@@ -12,4 +12,6 @@ public interface NoteService {
     Note getNoteById(Integer id);
 
     void deleteNote(Integer id);
+    
+    Note updateNote(Integer id, Note note);
 }

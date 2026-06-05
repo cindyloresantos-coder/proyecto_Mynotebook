@@ -36,4 +36,24 @@ public class NotebookServiceImpl implements NotebookService {
     public void deleteNotebook(Integer id) {
         notebookRepository.deleteById(id);
     }
+    
+    @Override
+    public Notebook updateNotebook(Integer id, Notebook notebook) {
+
+    Notebook existingNotebook =
+            notebookRepository.findById(id).orElse(null);
+
+    if (existingNotebook != null) {
+
+        existingNotebook.setSubject(notebook.getSubject());
+        existingNotebook.setCoverImage(notebook.getCoverImage());
+        existingNotebook.setDescription(notebook.getDescription());
+        existingNotebook.setTeacher(notebook.getTeacher());
+        existingNotebook.setUser(notebook.getUser());
+
+        return notebookRepository.save(existingNotebook);
+    }
+
+    return null;
+    }
 }

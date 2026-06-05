@@ -3,9 +3,12 @@ package com.mynotebook.controller;
 
 import com.mynotebook.model.User;
 import com.mynotebook.service.UserService;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.mynotebook.dto.LoginRequest;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -15,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public User saveUser(@Valid @RequestBody User user) {
         return userService.saveUser(user);
     }
 
@@ -31,7 +34,7 @@ public class UserController {
     
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Integer id,
-                       @RequestBody User user) {
+        @Valid @RequestBody User user) {
 
         return userService.updateUser(id, user);
     }
@@ -42,5 +45,14 @@ public class UserController {
         userService.deleteUser(id);
 
         return "El usuario fue eliminado correctamente";
+    }
+    
+    @PostMapping("/login")
+    public User login(@RequestBody LoginRequest loginRequest) {
+
+    return userService.login(
+            loginRequest.getUsername(),
+            loginRequest.getPassword()
+    );
     }
 }

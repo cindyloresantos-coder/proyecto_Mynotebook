@@ -7,6 +7,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
@@ -15,19 +18,29 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "first_name", nullable = false)
+    @NotBlank(message = "El nombre es obligatorio")
+    @Size(max = 100, message = "El nombre no puede superar 100 caracteres")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @NotBlank(message = "El apellido es obligatorio")
+    @Size(max = 100, message = "El apellido no puede superar 100 caracteres")
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(nullable = false, unique = true)
+    @NotBlank(message = "El nombre de usuario es obligatorio")
+    @Size(min = 4, max = 50, message = "El username debe tener entre 4 y 50 caracteres")
+    @Column(name = "username")
     private String username;
 
-    @Column(nullable = false, unique = true)
+    @NotBlank(message = "El correo es obligatorio")
+    @Email(message = "Debe ingresar un correo válido")
+    @Column(name = "email")
     private String email;
 
-    @Column(nullable = false)
+    @NotBlank(message = "La contraseña es obligatoria")
+    @Size(min = 6, message = "La contraseña debe tener mínimo 6 caracteres")
+    @Column(name = "password")
     private String password;
 
     @Column(name = "profile_image")

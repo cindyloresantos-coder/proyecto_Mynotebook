@@ -27,9 +27,17 @@ public class NotebookController {
     public Notebook getNotebookById(@PathVariable Integer id) {
         return notebookService.getNotebookById(id);
     }
+    
+    @PutMapping("/{id}")
+    public Notebook updateNotebook(
+        @PathVariable Integer id,
+        @RequestBody Notebook notebook) {
 
+    return notebookService.updateNotebook(id, notebook);
+    }   
+    
     @DeleteMapping("/{id}")
     public void deleteNotebook(@PathVariable Integer id) {
         notebookService.deleteNotebook(id);
-    }
+    }  
 }

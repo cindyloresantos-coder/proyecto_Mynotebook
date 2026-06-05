@@ -14,4 +14,6 @@ public interface NotebookService {
     
     void deleteNotebook(Integer id);
     
+    Notebook updateNotebook(Integer id, Notebook notebook);
+    
 }

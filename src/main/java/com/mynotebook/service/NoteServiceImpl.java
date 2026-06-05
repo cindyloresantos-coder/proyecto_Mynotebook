@@ -31,4 +31,24 @@ public class NoteServiceImpl implements NoteService {
     public void deleteNote(Integer id) {
         noteRepository.deleteById(id);
     }
+    
+    @Override
+    public Note updateNote(Integer id, Note note) {
+
+    Note existingNote =
+            noteRepository.findById(id).orElse(null);
+
+    if (existingNote != null) {
+
+        existingNote.setTitle(note.getTitle());
+        existingNote.setContent(note.getContent());
+        existingNote.setPageNumber(note.getPageNumber());
+        existingNote.setShowInContent(note.getShowInContent());
+        existingNote.setNotebook(note.getNotebook());
+
+        return noteRepository.save(existingNote);
+    }
+
+    return null;
+    }
 }
